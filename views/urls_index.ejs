@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyApp</title>
+</head>
+<body>
+  <header>
+    <% include partials/_header.ejs %>
+  </header>
+  <main>
+    <h1>Welcome to TinyApp</h1>
+    <ul>
+      <% for(let i = 0; i < urls.length; i++) { %>
+      <li>
+        <%= urls[i].url %>
+      </li>
+      <% }; %>
+    </ul>
+    <footer>
+      <% include partials/_footer.ejs %>
+    </footer>
+  </main>
+</body>
+</html>
