@@ -1,11 +1,13 @@
 const express = require("express");
 const base62 = require("base62/lib/ascii");
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const app = express();
 const PORT = 8080;
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(morgan('tiny'));
 
 function generateRandomString() {
   // ****************THIS FUNCTION IS TEMPORARY***********
@@ -22,6 +24,7 @@ let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
+
 // Redirect to full url when shorturl entered /u/<shorturl>
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
@@ -65,4 +68,4 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.listen(8080);
-console.log('http//localhost:8080/');
+console.log('Listening on http//localhost:8080/');
