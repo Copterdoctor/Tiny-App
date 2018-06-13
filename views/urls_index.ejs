@@ -13,22 +13,20 @@
   </header>
   <main>
     <h1>Welcome to TinyApp</h1>
-    <ul>
+    <div class="grid-container">
       <% for(let property in urls) { %>
-        <li class="grid-container">
-          <%=property%> =>
-            <%= urls[property] %>
-              <% let deleteURL = "/u/" + property + "/delete"; %>
-                <% let modifyURL = "/urls/" + property; %>
-                  <form method="POST" class="grid-item" action= <%=deleteURL %>>
-                    <button class="grid-item" type="submit">DELETE</button>
-                  </form>
-                  <form method="GET" class="grid-item" action= <%=modifyURL %>>
-                    <button class="grid-item" type="submit">EDIT</button>
-                  </form>
-        </li>
-        <% }; %>
-    </ul>
+        <%=property%> =>
+          <%= urls[property] %>
+            <% let deleteURL = "/u/" + property + "/delete"; %>
+              <% let modifyURL = "/urls/" + property; %>
+                <form method="POST" class="grid-item1" action=<%=deleteURL %>>
+                  <button id="button" class="grid-item" type="submit">DELETE</button>
+                </form>
+                <form method="GET" class="grid-item2" action=<%=modifyURL %>>
+                  <button id="button" class="grid-item" type="submit">EDIT</button>
+                </form>
+                <% }; %>
+    </div>
     <footer>
       <% include partials/_footer.ejs %>
     </footer>

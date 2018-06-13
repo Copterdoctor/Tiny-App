@@ -3,13 +3,20 @@
   grid-template-columns: auto auto auto;
   padding: 10px;
   text-align: auto;
-  text-justify: center;
   border: 1px solid rgba(0, 0, 0, 0.8);
 }
-.grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+
+.grid-item1 {
+  /* border: 1px solid rgba(0, 0, 0, 0.8); */
   /* padding: 10px; */
   font-size: 15px;
-  text-align: start;
+  text-align: auto;
+  
+}
+.grid-item2 {
+  /* border: 1px solid rgba(0, 0, 0, 0.8); */
+  /* padding: 10px; */
+  font-size: 15px;
+  text-align: auto;
+  
 }

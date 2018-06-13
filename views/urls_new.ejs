@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body style="font-size:20px; padding:50px;">
-    <form action="/urls" method="POST" style="margin:150px;">
-      <label for="longURL">Enter a URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-      <input type="submit" value="Submit">
-    </form>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body style="font-size:20px; padding:50px;">
+  <h1>Enter a new URL</h1>
+  <form action="/urls" method="POST" style="margin:150px;">
+    <label for="longURL"></label>
+    <input id="longURL" type="text" name="longURL" placeholder="Enter a URL http://" style="width: 300px">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+
 </html>
