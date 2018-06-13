@@ -5,14 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyApp</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
 </head>
 
 <body>
   <header>
+    <% include partials/_header.ejs %>
   </header>
   <main>
-    <h1>Index of URLs</h1>
+    <h1>Welcome <%=user%></h1>
     <table>
       <tr>
         <th>Short URL</th>
@@ -28,12 +30,12 @@
         <% let modifyURL = "/urls/" + property; %>
         <td>
           <form method="POST"  action=<%=deleteURL %>>
-            <button  type="submit">DELETE</button>
+            <button  type="submit" class="btn btn-primary">DELETE</button>
           </form>
           </td>
           <td>
           <form method="GET"  action=<%=modifyURL %>>
-            <button  type="submit">EDIT</button>
+            <button  type="submit" class="btn btn-primary">EDIT</button>
           </form>
         </td>
       </tr>
