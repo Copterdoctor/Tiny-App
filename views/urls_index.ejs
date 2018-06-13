@@ -5,26 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyApp</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <header>
-    <% include partials/_header.ejs %>
   </header>
   <main>
     <h1>Welcome to TinyApp</h1>
     <ul>
       <% for(let property in urls) { %>
-        <li>
+        <li class="grid-container">
           <%=property%> =>
-          <%= urls[property] %> 
-          <% let deleteURL = "/u/" + property + "/delete" %>
-          <% let modifyURL = "/urls/" + property %>
-          <form action= <%=deleteURL %> method="POST">
-            <input type="submit" value="DELETE" >
-          </form><form action=<%= modifyURL %> method="GET">
-            <input type="submit" value="EDIT">
-          </form>
+            <%= urls[property] %>
+              <% let deleteURL = "/u/" + property + "/delete"; %>
+                <% let modifyURL = "/urls/" + property; %>
+                  <form method="POST" class="grid-item" action= <%=deleteURL %>>
+                    <button class="grid-item" type="submit">DELETE</button>
+                  </form>
+                  <form method="GET" class="grid-item" action= <%=modifyURL %>>
+                    <button class="grid-item" type="submit">EDIT</button>
+                  </form>
         </li>
         <% }; %>
     </ul>
