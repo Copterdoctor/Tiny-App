@@ -8,21 +8,17 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body>
-  <main>
-    <h1>
-      ShortURL:
-      <%= shortURL %>
-    </h1>
-
-    <body style="font-size:20px; padding:50px;">
-      <% let urlEDIT = "/u/" + shortURL + "/edit" %>
+<body style="font-size:20px; padding:50px;"></body>
+<main>
+  <h1>
+    <%= shortURL %>
+  </h1>
+  <% let urlEDIT = "/u/" + shortURL + "/edit" %>
         <form action=<%= urlEDIT %> method="POST" style="margin:150px;">
           <label for="longURL">Enter a new URL:</label>
           <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
           <input type="submit" value="Update">
         </form>
-    </body>
 </body>
 
 </html>

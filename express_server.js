@@ -16,7 +16,7 @@ function generateRandomString() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
   };
-  return base62.encode(getRandomIntInclusive(10000, 100000));
+  return base62.encode(getRandomIntInclusive(1000000, 10000000));
 }
 
 let urlDatabase = {

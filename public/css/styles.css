@@ -1,22 +1,11 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 10px;
-  text-align: auto;
-  border: 1px solid rgba(0, 0, 0, 0.8);
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.grid-item1 {
-  /* border: 1px solid rgba(0, 0, 0, 0.8); */
-  /* padding: 10px; */
-  font-size: 15px;
-  text-align: auto;
-  
+th, td {
+  text-align: left;
+  padding: 8px;
 }
-.grid-item2 {
-  /* border: 1px solid rgba(0, 0, 0, 0.8); */
-  /* padding: 10px; */
-  font-size: 15px;
-  text-align: auto;
-  
-}
+
+tr:nth-child(even) {background-color: #f2f2f2;}

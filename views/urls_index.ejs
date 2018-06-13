@@ -12,21 +12,33 @@
   <header>
   </header>
   <main>
-    <h1>Welcome to TinyApp</h1>
-    <div class="grid-container">
+    <h1>Index of URLs</h1>
+    <table>
+      <tr>
+        <th>Short URL</th>
+        <th>Long URL</th>
+        <th>Delete URL</th>
+        <th>Edit URL Link</th>
+      </tr>
       <% for(let property in urls) { %>
-        <%=property%> =>
-          <%= urls[property] %>
-            <% let deleteURL = "/u/" + property + "/delete"; %>
-              <% let modifyURL = "/urls/" + property; %>
-                <form method="POST" class="grid-item1" action=<%=deleteURL %>>
-                  <button id="button" class="grid-item" type="submit">DELETE</button>
-                </form>
-                <form method="GET" class="grid-item2" action=<%=modifyURL %>>
-                  <button id="button" class="grid-item" type="submit">EDIT</button>
-                </form>
-                <% }; %>
-    </div>
+      <tr>
+        <td><%=property%> =></td>
+        <td><%= urls[property] %></td>
+        <% let deleteURL = "/u/" + property + "/delete"; %>
+        <% let modifyURL = "/urls/" + property; %>
+        <td>
+          <form method="POST"  action=<%=deleteURL %>>
+            <button  type="submit">DELETE</button>
+          </form>
+          </td>
+          <td>
+          <form method="GET"  action=<%=modifyURL %>>
+            <button  type="submit">EDIT</button>
+          </form>
+        </td>
+      </tr>
+      <% }; %>
+    </table>         
     <footer>
       <% include partials/_footer.ejs %>
     </footer>
