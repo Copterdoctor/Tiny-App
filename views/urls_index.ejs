@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyApp</title>
 </head>
+
 <body>
   <header>
     <% include partials/_header.ejs %>
@@ -13,20 +15,23 @@
     <h1>Welcome to TinyApp</h1>
     <ul>
       <% for(let property in urls) { %>
-      <li>
-        <%=property%> : <%= urls[property] %> : 
-        <!-- <% let deleteURL = `/u/` %> -->
-        <!-- <% let currentShortURL = property%> -->
-        <% deleteURL = "/u/" + property + "/delete" %>
-        <form method="POST" action= <%= deleteURL %>>
-          <input type="submit" value="DELETE">
-        </form>
-      </li>
-      <% }; %>
+        <li>
+          <%=property%> =>
+          <%= urls[property] %> 
+          <% let deleteURL = "/u/" + property + "/delete" %>
+          <% let modifyURL = "/urls/" + property %>
+          <form action= <%=deleteURL %> method="POST">
+            <input type="submit" value="DELETE" >
+          </form><form action=<%= modifyURL %> method="GET">
+            <input type="submit" value="EDIT">
+          </form>
+        </li>
+        <% }; %>
     </ul>
     <footer>
       <% include partials/_footer.ejs %>
     </footer>
   </main>
 </body>
+
 </html>

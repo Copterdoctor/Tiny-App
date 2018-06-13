@@ -27,8 +27,15 @@ app.get("/u/:shortURL", (req, res) => {
   res.redirect(302, `${longURL}`);
 });
 
+// Delete a url from database
 app.post('/u/:shortURL/delete', (req, res) => {
   delete urlDatabase[req.params.shortURL];
+  res.redirect(301, '/urls');
+});
+
+// change long URL of database key
+app.post('/u/:shortURL/edit', (req, res) => {
+  urlDatabase[req.params.shortURL] = req.body.longURL;
   res.redirect(301, '/urls');
 });
 
@@ -37,16 +44,19 @@ app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render("urls_index", templateVars)
 });
+
 // Append long webaddress to urlDatabase with randomly generated short URL
 app.post("/urls", (req, res) => {
   let randomString = generateRandomString();
   urlDatabase[randomString] = req.body.longURL;
   res.redirect(302, `/urls`);
 });
+
 // Render enter new URL page
 app.get('/urls/new', (req, res) => {
   res.render('urls_new');
 });
+
 // Render urls_show
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id };
