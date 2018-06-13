@@ -2,12 +2,14 @@ const express = require("express");
 const base62 = require("base62/lib/ascii");
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 8080;
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('tiny'));
+app.use(cookieParser());
 
 function generateRandomString() {
   // ****************THIS FUNCTION IS TEMPORARY***********
@@ -24,6 +26,22 @@ let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
+// root redirects to urls
+app.get('/', (req, res) => {
+  res.redirect(302, '/urls');
+});
+
+app.post('/login', (req, res) => {
+  let cookie = req.cookies.username;
+  let user = req.body.userName;
+  res.cookie('username', user, { maxAge: 60000, httpOnly: true });
+  res.redirect(302, '/urls');
+});
+
+app.post('/logout', (req, res) => {
+  res.clearCookie('username');
+  res.redirect(302, '/urls');
+});
 
 // Redirect to full url when shorturl entered /u/<shorturl>
 app.get("/u/:shortURL", (req, res) => {
@@ -45,7 +63,7 @@ app.post('/u/:shortURL/edit', (req, res) => {
 
 // Render index of urls in urlDatabse object
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = { urls: urlDatabase, user: req.cookies.username };
   res.render("urls_index", templateVars)
 });
 
