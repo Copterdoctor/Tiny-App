@@ -169,8 +169,11 @@ app.get('/register', (req, res) => {
 app.get("/urls", (req, res) => {
   let cookie = validCookie(req.session);
   if (cookie) {
-    let urls = userUrls(req.session.user_id);
-    res.render("urls_index", { urls: urls })
+    let templateVars = {
+      urls: userUrls(req.session.user_id),
+      email: users[req.session.user_id].email
+    }
+    res.render("urls_index", templateVars)
   } else {
     res.redirect(302, '/login');
   };
@@ -192,7 +195,10 @@ app.post("/urls", (req, res) => {
 app.get('/urls/new', (req, res) => {
   let cookie = validCookie(req.session);
   if (cookie) {
-    res.render('urls_new');
+    let templateVars = {
+      email: users[req.session.user_id].email
+    }
+    res.render('urls_new', templateVars);
   } else {
     res.redirect(302, '/login');
   };
@@ -203,7 +209,10 @@ app.get('/urls/new', (req, res) => {
 app.get("/urls/:id", (req, res) => {
   let cookie = validCookie(req.session);
   if (cookie) {
-    let templateVars = { shortUrl: req.params.id };
+    let templateVars = {
+      shortUrl: req.params.id,
+      email: users[req.session.user_id].email
+    }
     res.render("urls_show", templateVars);
   } else {
     res.redirect(302, '/login');
@@ -224,7 +233,12 @@ app.post('/u/:shortUrl/edit', (req, res) => {
     urlDatabase[req.params.shortUrl].longUrl = req.body.longUrl;
     res.redirect(302, '/urls');
   } else {
-    res.render('/u/:shortURL/edit', { url: req.body.longUrl });
+    let templateVars = {
+      shortUrl: req.params.id,
+      email: users[req.session.user_id].email,
+      url: req.body.longUrl
+    }
+    res.render('/u/:shortURL/edit', templateVars);
   };
 
 });
@@ -232,8 +246,8 @@ app.post('/u/:shortUrl/edit', (req, res) => {
 
 // Redirect to full url when shorturl entered /u/<shorturl>
 app.get("/u/:shortUrl", (req, res) => {
-    let longUrl = urlDatabase[req.params.shortUrl].longUrl;
-    res.redirect(302, `${longUrl}`);
+  let longUrl = urlDatabase[req.params.shortUrl].longUrl;
+  res.redirect(302, `${longUrl}`);
 });
 
 
