@@ -22,9 +22,12 @@ app.set("view engine", "ejs");
 
 
 let urlDatabase = {
-  'TSLA': 'http://www.tesla.com/',
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  'TSLA':   {longUrl: 'http://www.tesla.com/', 
+            user_id: 'admin'},
+  "b2xVn2": {longUrl: "http://www.lighthouselabs.ca", 
+            user_id: 'admin'},
+  "9sm5xK": {longUrl: "http://www.google.com", 
+            user_id: 'admin'}
 };
 
 
@@ -47,7 +50,6 @@ function checkPassword(password, user) {
 
 
 function generateRandomString() {
-  // ****************THIS FUNCTION IS TEMPORARY***********
   function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
