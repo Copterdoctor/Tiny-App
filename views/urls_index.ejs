@@ -24,16 +24,16 @@
       <% for(let property in urls) { %>
       <tr>
         <td><%=property%> =></td>
-        <td><%= urls[property] %></td>
-        <% let deleteURL = "/u/" + property + "/delete"; %>
-        <% let modifyURL = "/urls/" + property; %>
+        <td><%= urls[property].longUrl %></td>
+        <% let deleteUrl = "/u/" + property + "/delete"; %>
+        <% let modifyUrl = "/urls/" + property; %>
         <td>
-          <form method="POST"  action=<%=deleteURL %>>
+          <form method="POST"  action=<%=deleteUrl %>>
             <button  type="submit" class="btn btn-primary">DELETE</button>
           </form>
           </td>
           <td>
-          <form method="GET"  action=<%=modifyURL %>>
+          <form method="GET"  action=<%=modifyUrl %>>
             <button  type="submit" class="btn btn-primary">EDIT</button>
           </form>
         </td>

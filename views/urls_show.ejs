@@ -15,12 +15,12 @@
       <% include partials/_header.ejs %>
   </header>
   <h1>
-    <%= shortURL %>
+    <%= shortUrl %>
   </h1>
-  <% let urlEDIT = "/u/" + shortURL + "/edit" %>
+  <% let urlEDIT = "/u/" + shortUrl + "/edit" %>
         <form action=<%= urlEDIT %> method="POST" style="margin:150px;">
-          <label for="longURL">Enter a new URL:</label>
-          <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
+          <label for="longUrl">Enter a new URL:</label>
+          <input id="longUrl" type="text" name="longUrl" placeholder="http://" style="width: 300px">
           <input class="btn btn-primary" type="submit" value="Update">
         </form>
         <footer>
