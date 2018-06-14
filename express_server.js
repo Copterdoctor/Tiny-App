@@ -228,13 +228,8 @@ app.post('/u/:shortUrl/edit', (req, res) => {
 
 // Redirect to full url when shorturl entered /u/<shorturl>
 app.get("/u/:shortUrl", (req, res) => {
-  let cookie = validCookie(req.cookies);
-  if (cookie) {
-    let longUrl = urlDatabase[req.params.shortUrl];
+    let longUrl = urlDatabase[req.params.shortUrl].longUrl;
     res.redirect(302, `${longUrl}`);
-  } else {
-    res.redirect(302, '/login');
-  };
 });
 
 
