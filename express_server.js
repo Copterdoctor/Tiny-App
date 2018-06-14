@@ -37,15 +37,12 @@ const users = {
 };
 
 
-function hashPassword(data, user) {
-  bcrypt.hash(data, saltRounds, function (err, hash) {
-    user.password = hash;
-  });
+function hashPassword(data) {
+  return bcrypt.hashSync(data, saltRounds);
 };
 
 function checkPassword(password, user) {
-  let compareResult = bcrypt.compareSync(password, user.password);
-  return compareResult;
+  return bcrypt.compareSync(password, user.password);;
 };
 
 
@@ -73,8 +70,8 @@ function validCookie(cookies) {
     if (cookies.user_id == users[entry].id) {
       return true;
     };
-    return false;
   };
+  return false;
 };
 
 
@@ -110,7 +107,7 @@ app.post('/login', (req, res) => {
   if (validEntries && userExists) {
     let validPassword = checkPassword(req.body.password, userExists)
     if (validPassword) {
-      res.cookie('user_id', userExists.id, { maxAge: 600000, httpOnly: true });
+      res.cookie('user_id', userExists.id);
       res.redirect(302, '/urls');
     } else {
       res.render('login', { email: req.body.email, password: req.body.password });
@@ -130,8 +127,8 @@ app.post('/logout', (req, res) => {
 app.post('/register', (req, res) => {
   let randomUserId = generateRandomString();
   users[randomUserId] = { 'id': randomUserId, 'email': req.body.email };
-  hashPassword(req.body.password, users[randomUserId]);
-  res.cookie('user_id', randomUserId, { maxAge: 6000000, httpOnly: true });
+  users[randomUserId].password =  hashPassword(req.body.password, users[randomUserId]);
+  res.cookie('user_id', randomUserId);
   res.redirect('/urls');
 });
 
@@ -140,14 +137,17 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
-/////FIX THIS
-app.get("/urls", (req, res) => {
-  // if (req.cookies.user_id) {
 
-  // }
-  // let currentUser = users[req.cookies.user_id].email;
-  let templateVars = { urls: urlDatabase, };
-  res.render("urls_index", templateVars)
+app.get("/urls", (req, res) => {
+  let cookie = validCookie(req.cookies);
+  console.log(users);
+  
+  if (cookie) {
+    let templateVars = { urls: urlDatabase, };
+    res.render("urls_index", templateVars)
+  } else {
+    res.redirect(302, '/login');
+  };
 });
 
 
@@ -161,35 +161,50 @@ app.post("/urls", (req, res) => {
 
 // Render enter new URL page
 app.get('/urls/new', (req, res) => {
-  res.render('urls_new');
+  let cookie = validCookie(req.cookies);
+  if (cookie) {
+    res.render('urls_new');
+  } else {
+    res.redirect(302, '/login');
+  };
 });
 
 
 // Render urls_show
 app.get("/urls/:id", (req, res) => {
-  let templateVars = { shortURL: req.params.id };
-  res.render("urls_show", templateVars);
+  let cookie = validCookie(req.cookies);
+  if (cookie) {
+    let templateVars = { shortURL: req.params.id };
+    res.render("urls_show", templateVars);
+  } else {
+    res.redirect(302, '/login');
+  };
 });
 
 
 // Delete a url from database
 app.post('/u/:shortURL/delete', (req, res) => {
   delete urlDatabase[req.params.shortURL];
-  res.redirect(301, '/urls');
+  res.redirect(302, '/urls');
 });
 
 
 // change long URL of database key
 app.post('/u/:shortURL/edit', (req, res) => {
   urlDatabase[req.params.shortURL] = req.body.longURL;
-  res.redirect(301, '/urls');
+  res.redirect(200, '/urls');
 });
 
 
 // Redirect to full url when shorturl entered /u/<shorturl>
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL];
-  res.redirect(302, `${longURL}`);
+  let cookie = validCookie(req.cookies);
+  if (cookie) {
+    let longURL = urlDatabase[req.params.shortURL];
+    res.redirect(302, `${longURL}`);
+  } else {
+    res.redirect(302, '/login');
+  };
 });
 
 
