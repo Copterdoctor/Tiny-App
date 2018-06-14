@@ -13,7 +13,7 @@
     <% include partials/_header.ejs %>
   </header>
   <main>
-    <h1>Welcome <% if(locals.currentUser !== undefined) {%> <%=locals.currentUser%> <% }; %> </h1>
+    <h1>Welcome <%=locals.currentUser%> </h1>
     <table>
       <tr>
         <th>Short URL</th>

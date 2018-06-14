@@ -140,8 +140,6 @@ app.get('/register', (req, res) => {
 
 app.get("/urls", (req, res) => {
   let cookie = validCookie(req.cookies);
-  console.log(users);
-  
   if (cookie) {
     let templateVars = { urls: urlDatabase, };
     res.render("urls_index", templateVars)
