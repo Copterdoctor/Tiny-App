@@ -31,18 +31,24 @@ let urlDatabase = {
 const users = {
   'admin': {
     id: "admin",
-    email: "user@example.com",
-    password: "password"
+    email: "admin@admin.com",
+    password: "$2b$10$1VJtF2uZI2RHClWKAhwPyeQ8SfxRK3ztcgpz8yCfq68lyLMG/JNnC"
   }
 };
+
 
 function hashPassword(data, user) {
   bcrypt.hash(data, saltRounds, function (err, hash) {
     user.password = hash;
-    console.log(users);
-
   });
-}
+};
+
+function checkPassword(password, user) {
+  let compareResult = bcrypt.compareSync(password, user.password);
+  return compareResult;
+};
+
+
 function generateRandomString() {
   // ****************THIS FUNCTION IS TEMPORARY***********
   function getRandomIntInclusive(min, max) {
@@ -57,29 +63,29 @@ function generateRandomString() {
 function validateData(data) {
   if (data.email && data.email.length > 0 && data.password && data.password.length > 0) {
     return true;
-  }
+  };
   return false;
-}
+};
 
 
 function validCookie(cookies) {
-  for (let userEntry in users) {
-    if (cookies.user_id == users[userEntry]) {
-      return users[userEntry];
-    }
+  for (let entry in users) {
+    if (cookies.user_id == users[entry].id) {
+      return true;
+    };
     return false;
-  }
+  };
 };
 
 
 function validateUser(data) {
   for (let userEntry in users) {
-    if (users[userEntry].email == data.email && users[userEntry].password == data.password) {
+    if (users[userEntry].email == data.email) {
       return users[userEntry];
-    }
-  }
+    };
+  };
   return false;
-}
+};
 
 
 // root redirects to urls
@@ -89,27 +95,29 @@ app.get('/', (req, res) => {
 
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  let cookie = validCookie(req.cookies);
+  if (cookie) {
+    res.redirect(302, '/urls');
+  } else {
+    res.render('login');
+  };
 });
 
 
 app.post('/login', (req, res) => {
   let validEntries = validateData(req.body);
   let userExists = validateUser(req.body);
-  let cookie = validCookie(req.cookies);
-  if (cookie) {
-    res.redirect(302, '/urls');
-  }
-  if (userExists) {
-    res.cookie('user_id', userExists.id, { maxAge: 60000, httpOnly: true });
-    res.redirect(302, '/urls');
-  }
   if (validEntries && userExists) {
-    res.cookie('user_id', userExists.id, { maxAge: 60000, httpOnly: true });
-    res.redirect(302, '/urls');
+    let validPassword = checkPassword(req.body.password, userExists)
+    if (validPassword) {
+      res.cookie('user_id', userExists.id, { maxAge: 600000, httpOnly: true });
+      res.redirect(302, '/urls');
+    } else {
+      res.render('login', { email: req.body.email, password: req.body.password });
+    };
   } else {
     res.render('login', { email: req.body.email, password: req.body.password });
-  }
+  };
 });
 
 
@@ -123,7 +131,7 @@ app.post('/register', (req, res) => {
   let randomUserId = generateRandomString();
   users[randomUserId] = { 'id': randomUserId, 'email': req.body.email };
   hashPassword(req.body.password, users[randomUserId]);
-  res.cookie('user_id', randomUserId, { maxAge: 6000, httpOnly: true });
+  res.cookie('user_id', randomUserId, { maxAge: 6000000, httpOnly: true });
   res.redirect('/urls');
 });
 
@@ -132,10 +140,13 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
-
+/////FIX THIS
 app.get("/urls", (req, res) => {
-  let currentUser = users[req.cookies.user_id].email;
-  let templateVars = { urls: urlDatabase, currentUser: currentUser };
+  // if (req.cookies.user_id) {
+
+  // }
+  // let currentUser = users[req.cookies.user_id].email;
+  let templateVars = { urls: urlDatabase, };
   res.render("urls_index", templateVars)
 });
 
