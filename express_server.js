@@ -137,16 +137,21 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   let validEntries = validateData(req.body);
   let userExists = validateUser(req.body);
+  let templateVars = {
+    email: req.body.email, 
+    password: req.body.password, 
+  };
+
   if (validEntries && userExists) {
     let validPassword = checkPassword(req.body.password, userExists)
     if (validPassword) {
       req.session.user_id = userExists.id;
       res.redirect(302, '/urls');
     } else {
-      res.render('login', { email: req.body.email, password: req.body.password });
+      res.redirect(302, 'login');
     };
   } else {
-    res.render('login', { email: req.body.email, password: req.body.password });
+    res.render('login', templateVars);
   };
 });
 
@@ -180,7 +185,7 @@ app.get("/urls", (req, res) => {
     }
     res.render("urls_index", templateVars)
   } else {
-    res.redirect(302, '/');
+    res.redirect(302, '/error');
   };
 });
 
@@ -253,6 +258,11 @@ app.post('/u/:shortUrl/edit', (req, res) => {
 app.get("/u/:shortUrl", (req, res) => {
   let longUrl = urlDatabase[req.params.shortUrl].longUrl;
   res.redirect(302, `${longUrl}`);
+});
+
+
+app.get('/error', (req, res) => {
+  res.render('error');
 });
 
 

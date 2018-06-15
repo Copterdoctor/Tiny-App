@@ -12,6 +12,11 @@
   <input class="btn btn-primary" type="submit" value="logout">
 </form>
 <%} else {%>
+
+<h1>
+  <%= locals.error %>
+</h1>
+
 <form action="/login" method="GET">
   <input class="btn btn-primary" type="submit" value="Login">
 </form>
