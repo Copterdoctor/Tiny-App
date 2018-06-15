@@ -1,10 +1,22 @@
-<h1> <%=locals.email%></h1>
+<%if (locals.email) {%>
+<h1> 
+  <%=locals.email%>
+</h1>
 
 </form>
-<form action="/" method="GET">
+  <form action="/" method="GET">
   <input class="btn btn-primary" type="submit" value="Home">
-</form>
+  </form>
 </form>
 <form action="/logout" method="POST">
   <input class="btn btn-primary" type="submit" value="logout">
 </form>
+<%} else {%>
+<form action="/login" method="GET">
+  <input class="btn btn-primary" type="submit" value="Login">
+</form>
+</form>
+  <form action="/register" method="GET">
+  <input class="btn btn-primary" type="submit" value="Register">
+</form>
+<%}%> 

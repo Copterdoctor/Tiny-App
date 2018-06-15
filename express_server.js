@@ -115,7 +115,12 @@ function userUrls(user_id) {
 
 // root redirects to urls
 app.get('/', (req, res) => {
-  res.redirect(302, '/login');
+  let cookie = validCookie(req.session);
+  if (cookie) {
+    res.redirect(302, '/urls');
+  } else {
+    res.render('index');
+  };
 });
 
 
@@ -148,7 +153,7 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
   req.session = null;
-  res.redirect(302, '/login');
+  res.redirect(302, '/');
 });
 
 
@@ -175,7 +180,7 @@ app.get("/urls", (req, res) => {
     }
     res.render("urls_index", templateVars)
   } else {
-    res.redirect(302, '/login');
+    res.redirect(302, '/');
   };
 });
 
@@ -200,7 +205,7 @@ app.get('/urls/new', (req, res) => {
     }
     res.render('urls_new', templateVars);
   } else {
-    res.redirect(302, '/login');
+    res.redirect(302, '/');
   };
 });
 
@@ -215,7 +220,7 @@ app.get("/urls/:id", (req, res) => {
     }
     res.render("urls_show", templateVars);
   } else {
-    res.redirect(302, '/login');
+    res.redirect(302, '/');
   };
 });
 
