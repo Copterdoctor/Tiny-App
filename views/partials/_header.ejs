@@ -2,29 +2,25 @@
 <h1> 
   Welcome, <%=locals.email%>
 </h1>
-<div class="container">
-  <form action="/" method="GET">
-    <div class="form-group">
-      <input class="btn btn-primary btn-lg active" type="submit" value="Home">
-    </div>
-  </form>
-
-  <form action="/logout" method="POST">
-    <div class="form-group">
-      <input class="btn btn-secondary btn-lg active" type="submit" value="logout">
-    </div>
-  </form>
+<div class="input-group">
+  <div class="input-group-append">
+      <form action="/" method="GET">
+        <input class="btn btn-primary btn-lg active" type="submit" value="Home">
+      </form>
+      <form action="/logout" method="POST">
+        <input class="btn btn-secondary btn-lg active" type="submit" value="logout">
+      </form>
+  </div>
 </div>
 <%} else {%>
-<div class="container">
-<div class="btn-group" role="group" aria-label="Basic example">
-  <form action="/login" method="GET">
-    <input class="btn btn-primary btn-lg active" type="submit" value="Login">
-  </form>
-
-  <form action="/register" method="GET">
-    <input class="btn btn-secondary btn-lg active" type="submit" value="Register">
-  </form>
-</div>
+<div class="input-group">
+    <div class="input-group-append">
+      <form action="/login" method="GET">
+        <input class="btn btn-primary btn-lg active" type="submit" value="Login">
+      </form>
+      <form action="/register" method="GET">
+        <input class="btn btn-secondary btn-lg active" type="submit" value="Register">
+      </form>
+    </div>
 </div>
 <%}%> 

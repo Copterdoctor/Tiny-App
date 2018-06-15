@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color:#d7f6fa">
 <main>
   <div class="container">
     <header>
@@ -23,6 +23,7 @@
           <th scope="col">Long URL</th>
           <th scope="col">Delete URL</th>
           <th scope="col">Edit URL Link</th>
+          <th scope="col">Copy Link</th>
         </tr>
       </thead>
       <tbody>
@@ -30,9 +31,9 @@
           <% let deleteUrl = "/u/" + property + "/delete"; %>
           <% let modifyUrl = "/urls/" + property; %>
         <tr>
-          <th scope="row"><%=locals.rowNum %><% locals.rowNum += 1; %></th>
-          <td><%=property %> =></td>
-          <td><%= urls[property].longUrl %></td>
+          <th scope="row"><%=locals.rowNum %></th>
+          <td><a id="myInput<%=locals.rowNum %>">localhost:8080/u/<%=property %></a></td>
+          <td><a href="<%= urls[property].longUrl %>"><%= urls[property].longUrl %></a></td>
           <td>
             <form method="POST"  action=<%=deleteUrl %>>
               <button  type="submit" class="btn btn-primary btn-lg active">DELETE</button>
@@ -43,7 +44,11 @@
               <button  type="submit" class="btn btn-secondary btn-lg active">EDIT</button>
             </form>
           </td>
+          <td>
+            <button onclick="copyToClipboard('#myInput<%=locals.rowNum %>')"%>" class="btn btn-primary btn-lg active">Copy Link</button>
+          </td>
         </tr>
+        <% locals.rowNum += 1; %>
         <% }; %>
       </table>         
     <footer>
@@ -51,6 +56,16 @@
     </footer>
   </div>
 </main>
+<script>
+  function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  alert("Copied link to clipboard");
+  $temp.remove();
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

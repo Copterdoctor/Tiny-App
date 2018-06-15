@@ -5,18 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>URL Modify</title>
-  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body style="font-size:20px; padding:50px;"></body>
+<body style="background-color:#d7f6fa">
 <main>
   <div class="container">
     <header>
       <% include partials/_header.ejs %>
     </header>
     <h1>
-      <%= shortUrl %>
+      Update URL for: <%= shortUrl %>
     </h1>
     <% let urlEDIT = "/u/" + shortUrl + "/edit" %>
     <form action=<%= urlEDIT %> method="POST" style="margin:150px;">
