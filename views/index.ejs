@@ -7,11 +7,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Tiny App</title>
 </head>
-<body style="background-color:#d7f6fa">
-  <div class="container">
-    <header>
-      <% include partials/_header %>
-    </header>
+<body style="background-color:#d7f6fa; 
+             position: fixed;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);">
+  <div class="input-group">
+      <div class="input-group-append">
+        <form action="/login" method="GET">
+          <input class="btn btn-primary btn-lg active" type="submit" value="Login">
+        </form>
+        <form action="/register" method="GET">
+          <input class="btn btn-secondary btn-lg active" type="submit" value="Register">
+        </form>
+      </div>
   </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
