@@ -9,41 +9,50 @@
 </head>
 
 <body>
-  <header>
-    <% include partials/_header.ejs %>
-  </header>
-  <main>
+<main>
+  <div class="container">
+    <header>
+      <% include partials/_header.ejs %>
+    </header>
     <h1>Welcome <%=locals.currentUser%> </h1>
-    <table>
-      <tr>
-        <th>Short URL</th>
-        <th>Long URL</th>
-        <th>Delete URL</th>
-        <th>Edit URL Link</th>
-      </tr>
-      <% for(let property in urls) { %>
-      <tr>
-        <td><%=property%> =></td>
-        <td><%= urls[property].longUrl %></td>
-        <% let deleteUrl = "/u/" + property + "/delete"; %>
-        <% let modifyUrl = "/urls/" + property; %>
-        <td>
-          <form method="POST"  action=<%=deleteUrl %>>
-            <button  type="submit" class="btn btn-primary">DELETE</button>
-          </form>
-          </td>
+    <table class="table">
+      <caption>List of your saved urls</caption>
+      <thead>
+        <tr>
+          <th scope="col">Short URL</th>
+          <th scope="col">Long URL</th>
+          <th scope="col">Delete URL</th>
+          <th scope="col">Edit URL Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let property in urls) { %>
+          <% let deleteUrl = "/u/" + property + "/delete"; %>
+          <% let modifyUrl = "/urls/" + property; %>
+          let numOfRows = 1;
+        <tr>
+          <th scope="row"><%=numOfRows%></th>
+          <td><%=property%> =></td>
+          <td><%= urls[property].longUrl %></td>
           <td>
-          <form method="GET"  action=<%=modifyUrl %>>
-            <button  type="submit" class="btn btn-primary">EDIT</button>
-          </form>
-        </td>
-      </tr>
-      <% }; %>
-    </table>         
+            <form method="POST"  action=<%=deleteUrl %>>
+              <button  type="submit" lass="btn btn-primary btn-lg active">DELETE</button>
+            </form>
+            <form method="GET"  action=<%=modifyUrl %>>
+              <button  type="submit" class="btn btn-secondary btn-lg active">EDIT</button>
+            </form>
+          </td>
+        </tr>
+        <% numOfRows += 1;}; %>
+      </table>         
     <footer>
         <% include partials/_footer.ejs %>
     </footer>
-  </main>
+  </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

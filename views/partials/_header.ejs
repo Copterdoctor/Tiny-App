@@ -3,25 +3,28 @@
   <%=locals.email%>
 </h1>
 
-</form>
   <form action="/" method="GET">
-  <input class="btn btn-primary" type="submit" value="Home">
+    <div class="form-group">
+      <input class="btn btn-primary btn-lg active" type="submit" value="Home">
+    </div>
   </form>
-</form>
-<form action="/logout" method="POST">
-  <input class="btn btn-primary" type="submit" value="logout">
-</form>
+
+  <form action="/logout" method="POST">
+    <div class="form-group">
+      <input class="btn btn-secondary btn-lg active" type="submit" value="logout">
+    </div>
+  </form>
+
 <%} else {%>
 
-<h1>
-  <%= locals.error %>
-</h1>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <form action="/login" method="GET">
+    <input class="btn btn-primary" type="submit" value="Login">
+  </form>
 
-<form action="/login" method="GET">
-  <input class="btn btn-primary" type="submit" value="Login">
-</form>
-</form>
   <form action="/register" method="GET">
-  <input class="btn btn-primary" type="submit" value="Register">
-</form>
+    <input class="btn btn-secondary" type="submit" value="Register">
+  </form>
+</div>
+
 <%}%> 
