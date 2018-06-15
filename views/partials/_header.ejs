@@ -1,8 +1,8 @@
 <%if (locals.email) {%>
 <h1> 
-  <%=locals.email%>
+  Welcome, <%=locals.email%>
 </h1>
-
+<div class="container">
   <form action="/" method="GET">
     <div class="form-group">
       <input class="btn btn-primary btn-lg active" type="submit" value="Home">
@@ -14,17 +14,17 @@
       <input class="btn btn-secondary btn-lg active" type="submit" value="logout">
     </div>
   </form>
-
+</div>
 <%} else {%>
-
+<div class="container">
 <div class="btn-group" role="group" aria-label="Basic example">
   <form action="/login" method="GET">
-    <input class="btn btn-primary" type="submit" value="Login">
+    <input class="btn btn-primary btn-lg active" type="submit" value="Login">
   </form>
 
   <form action="/register" method="GET">
-    <input class="btn btn-secondary" type="submit" value="Register">
+    <input class="btn btn-secondary btn-lg active" type="submit" value="Register">
   </form>
 </div>
-
+</div>
 <%}%> 

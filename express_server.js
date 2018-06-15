@@ -181,7 +181,8 @@ app.get("/urls", (req, res) => {
   if (cookie) {
     let templateVars = {
       urls: userUrls(req.session.user_id),
-      email: users[req.session.user_id].email
+      email: users[req.session.user_id].email,
+      rowNum: 1
     }
     res.render("urls_index", templateVars)
   } else {
