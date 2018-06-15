@@ -113,6 +113,17 @@ function userUrls(user_id) {
 };
 
 
+function checkForExistingEmail(email) {
+  for (const key in users) {
+    if (users.hasOwnProperty(key)) {
+      if (users[key].email === email)
+        return true;
+    }
+  }
+  return false;
+}
+
+
 // root redirects to urls
 app.get('/', (req, res) => {
   let cookie = validCookie(req.session);
@@ -138,8 +149,8 @@ app.post('/login', (req, res) => {
   let validEntries = validateData(req.body);
   let userExists = validateUser(req.body);
   let templateVars = {
-    email: req.body.email, 
-    password: req.body.password, 
+    email: req.body.email,
+    password: req.body.password,
   };
 
   if (validEntries && userExists) {
@@ -163,11 +174,16 @@ app.post('/logout', (req, res) => {
 
 
 app.post('/register', (req, res) => {
-  let randomUserId = generateRandomString();
-  users[randomUserId] = { 'id': randomUserId, 'email': req.body.email };
-  users[randomUserId].password = hashPassword(req.body.password, users[randomUserId]);
-  req.session.user_id = randomUserId;
-  res.redirect('/urls');
+  let currentUserBool = checkForExistingEmail(req.body.email);
+  if (currentUserBool === false) {
+    let randomUserId = generateRandomString();
+    users[randomUserId] = { 'id': randomUserId, 'email': req.body.email };
+    users[randomUserId].password = hashPassword(req.body.password, users[randomUserId]);
+    req.session.user_id = randomUserId;
+    res.redirect('/urls');
+  } else {
+    res.render('register', { err: "An account has already been created for that email" });
+  }
 });
 
 

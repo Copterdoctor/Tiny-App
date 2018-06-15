@@ -9,15 +9,22 @@
 <body style="background-color:#d7f6fa">
   <div class="container">
     <header>
-      <% include partials/_header %>
+      <div class="input-group">
+        <div class="input-group-append">
+          <form action="/login" method="GET">
+            <input class="btn btn-primary btn-lg active" type="submit" value="Login">
+          </form>
+        </div>
+      </div>
     </header>
     <h1>Create a new account</h1>
+    <p><%=locals.err%></p>
     <div class="form-group">
       <form action="/register" method="POST">
         <label for="email">Email</label>
-        <input type="text" name="email" placeholder="Email">
-        <label for="password">Password</label>
-        <input type="text" name="password" placeholder="Password">
+        <input name="email" placeholder="Example@gmail.com" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label for="exampleInputPassword1">Password</label>
+        <input name="password" placeholder="Enter Password" type="password" class="form-control" id="exampleInputPassword1">
         <input class="btn btn-primary btn-lg active" type="submit" value="submit">
       </form>
     </div>
