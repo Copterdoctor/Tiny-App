@@ -28,14 +28,14 @@
       </thead>
       <tbody>
         <% for(let property in urls) { %>
-          <% let deleteUrl = "/u/" + property + "/delete"; %>
+          <% let deleteUrl = "/u/" + property + "/DELETE?_method=DELETE"; %>
           <% let modifyUrl = "/urls/" + property; %>
         <tr>
           <th scope="row"><%=locals.rowNum %></th>
           <td><a id="myInput<%=locals.rowNum %>">localhost:8080/u/<%=property %></a></td>
           <td><a href="<%= urls[property].longUrl %>"><%= urls[property].longUrl %></a></td>
           <td>
-            <form method="POST"  action=<%=deleteUrl %>>
+            <form method="POST"  action="<%=deleteUrl %>">
               <button  type="submit" class="btn btn-primary btn-lg active">DELETE</button>
             </form>
           </td>
