@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride = require('method-override');
 const base62 = require("base62/lib/ascii");
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -12,6 +13,7 @@ const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
+app.use(methodOverride('_method'));
 app.use(morgan('tiny'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -248,14 +250,14 @@ app.get("/urls/:id", (req, res) => {
 
 
 // Delete a url from database
-app.post('/u/:shortUrl/delete', (req, res) => {
+app.delete('/u/:shortUrl/DELETE', (req, res) => {
   delete urlDatabase[req.params.shortUrl];
   res.redirect(302, '/urls');
 });
 
 
 // change long URL of database key
-app.post('/u/:shortUrl/edit', (req, res) => {
+app.put('/u/:shortUrl/edit', (req, res) => {
   if (urlDatabase[req.params.shortUrl].user_id == req.session.user_id) {
     urlDatabase[req.params.shortUrl].longUrl = req.body.longUrl;
     res.redirect(302, '/urls');

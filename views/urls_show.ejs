@@ -17,7 +17,7 @@
     <h1>
       Update URL for: <%= shortUrl %>
     </h1>
-    <% let urlEDIT = "/u/" + shortUrl + "/edit" %>
+    <% let urlEDIT = "/u/" + shortUrl + "/edit?_method=PUT" %>
     <form action=<%= urlEDIT %> method="POST" style="margin:150px;">
       <label for="longUrl">Enter a new URL:</label>
       <input id="longUrl" type="text" name="longUrl" placeholder="http://" style="width: 300px">
