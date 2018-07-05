@@ -4,8 +4,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-!["screenshot description"](https://github.com/Copterdoctor/Tiny-App/blob/master/public/Screen%20Shot%201.png)
-!["screenshot description"](https://github.com/Copterdoctor/Tiny-App/blob/master/public/Screen%20Shot%202.png)
+!["screenshot description"](https://github.com/Copterdoctor/Tiny-App/blob/master/public/screenshots/Screen%20Shot%202.png)
+!["screenshot description"](https://github.com/Copterdoctor/Tiny-App/blob/master/public/screenshots/Screen%20Shot%201.png)
 
 ## Dependencies
 
